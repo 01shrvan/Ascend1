@@ -5,7 +5,15 @@ export default function Header({ activeLink }) {
     <header className="bg-white border-b">
       <div className="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
         <nav className="w-full md:w-auto">
-          <ul className="flex flex-wrap justify-center space-x-6">
+          <ul className="flex flex-wrap justify-center items-center space-x-6">
+            <li>
+              <a
+                href="/"
+                className={`text-blue-600 font-medium transition-colors relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[2px] after:bg-blue-600 after:opacity-0 after:transition-opacity hover:after:opacity-100`}
+              >
+                <img src="/logo.png" alt="MyJob Logo" className="h-16 w-16" />
+              </a>
+            </li>
             <li>
               <a
                 href="#"
