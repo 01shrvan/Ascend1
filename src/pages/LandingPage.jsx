@@ -7,8 +7,8 @@ import {
   Search,
   MapPin,
   Bookmark,
-} from "lucide-react"; 
-import Header from "@/components/header";
+} from "lucide-react";
+import Header from "@/components/Header";
 
 export default function LandingPage() {
   const [jobTitle, setJobTitle] = useState("");
@@ -81,7 +81,6 @@ export default function LandingPage() {
                   className="h-60 w-full rounded-lg "
                 />
               </div>
-              
             </div>
           </div>
         </section>
