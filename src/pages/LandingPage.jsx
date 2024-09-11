@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   User,
   Upload,
@@ -20,8 +20,18 @@ import {
   Heart,
   Database,
   Clock,
+  Check,
 } from "lucide-react";
 import Header from "@/components/Header";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   const [jobTitle, setJobTitle] = useState("");
@@ -73,12 +83,35 @@ export default function LandingPage() {
     { name: "Company G", logo: "/company-c-logo.svg" },
   ];
 
+  const popularVacancies = [
+    { title: "Software Engineer", company: "Google", applicants: 1500 },
+    { title: "Product Manager", company: "Amazon", applicants: 1200 },
+    { title: "Data Scientist", company: "Facebook", applicants: 1000 },
+    { title: "UX Designer", company: "Apple", applicants: 800 },
+  ];
+
+  const ascendSteps = [
+    {
+      title: "Create an Account",
+      description: "Sign up and complete your profile",
+    },
+    {
+      title: "Browse Jobs",
+      description: "Search and filter jobs that match your skills",
+    },
+    {
+      title: "Apply with Ease",
+      description: "Submit applications with just a few clicks",
+    },
+    { title: "Get Hired", description: "Interview and land your dream job" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-50">
       <Header activeLink="home" />
       <main>
         {/* Hero Section with Stats */}
-        <section className="bg-gray-100 py-16">
+        <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-center mb-12">
               <div className="w-full md:w-1/2 pr-0 md:pr-8 mb-8 md:mb-0">
@@ -92,7 +125,7 @@ export default function LandingPage() {
                   platform. We connect talented individuals with exciting
                   opportunities.
                 </p>
-                <div className="bg-transparent p-4 rounded-lg shadow-md">
+                <div className="bg-white p-4 rounded-lg shadow-lg">
                   <div className="flex flex-col md:flex-row mb-4">
                     <div className="relative flex-grow mb-4 md:mb-0 md:mr-4">
                       <Search
@@ -122,7 +155,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <button
-                    className="w-full flex items-center justify-center py-3 px-4 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    className="w-full flex items-center justify-center py-3 px-4 bg-blue-600 text-white rounded-md shadow-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     onClick={handleSearch}
                   >
                     <Search size={20} className="mr-2" /> Find Job
@@ -131,7 +164,7 @@ export default function LandingPage() {
               </div>
               <div className="w-full md:w-1/2">
                 <img
-                  src="/illustration.svg?height=400&width=500"
+                  src="illustration.svg"
                   alt="Job Search Illustration"
                   className="w-full h-auto"
                 />
@@ -139,7 +172,7 @@ export default function LandingPage() {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white p-8 rounded-lg shadow-md">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white p-8 rounded-lg shadow-lg">
               <div className="text-center">
                 <div className="flex justify-center items-center mb-2">
                   <BriefcaseIcon size={24} className="text-blue-600 mr-2" />
@@ -174,147 +207,208 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Popular Categories Section */}
+        {/* // Featured Jobs Section */}
         <section className="bg-white py-16">
           <div className="container mx-auto px-6">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">
-                Popular categories
-              </h2>
-              <a
-                href="/categories"
-                className="text-blue-600 hover:text-blue-800 transition-colors"
-              >
-                View All <ArrowRight className="inline-block ml-1" size={16} />
-              </a>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {popularCategories.map((category, index) => (
-                <a
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+              Featured Jobs
+            </h2>
+            <div className="space-y-6">
+              {featuredJobs.map((job, index) => (
+                <Card
                   key={index}
-                  href={`/category/${category.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                  className="bg-transparent p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center"
+                  className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
-                  <category.icon size={40} className="text-blue-600 mb-4" />
-                  <h3 className="font-semibold text-lg text-center text-gray-900 mb-2">
-                    {category.name}
-                  </h3>
-                  <p className="text-gray-600">
-                    {category.openPositions} Open positions
-                  </p>
-                </a>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Briefcase size={24} className="text-gray-700 mr-2" />
+                        <CardTitle className="text-lg font-semibold">
+                          {job.title}
+                        </CardTitle>
+                      </div>
+                      <Badge
+                        variant="outline"
+                        className="text-gray-800 border-gray-800"
+                      >
+                        {job.type}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-gray-600">
+                      <div className="flex items-center mb-2">
+                        <Building size={20} className="text-gray-500 mr-2" />
+                        {job.company}
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <MapPin size={20} className="text-gray-500 mr-2" />
+                        {job.location}
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <DollarSign size={20} className="text-gray-500 mr-2" />
+                        {job.salary}
+                      </div>
+                      <div className="text-gray-500">{job.timeRemaining}</div>
+                    </CardDescription>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Featured Jobs Section */}
-        <section className="bg-gray-100 py-16">
+        {/* Popular Categories Section */}
+        <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-6">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">
-                Featured Jobs
-              </h2>
-              <a
-                href="/jobs"
-                className="text-blue-600 hover:text-blue-800 transition-colors"
-              >
-                View All <ArrowRight className="inline-block ml-1" size={16} />
-              </a>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredJobs.map((job, index) => (
-                <div
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+              Most Popular Vacancies
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {popularVacancies.map((vacancy, index) => (
+                <Card
                   key={index}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                  className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {job.title}
-                  </h3>
-                  <p className="text-gray-600 mb-2">
-                    <Briefcase className="inline-block mr-1" size={16} />
-                    {job.company}
-                  </p>
-                  <p className="text-gray-600 mb-2">
-                    <MapPin className="inline-block mr-1" size={16} />
-                    {job.location}
-                  </p>
-                  <p className="text-gray-600 mb-2">
-                    <DollarSign className="inline-block mr-1" size={16} />
-                    {job.salary}
-                  </p>
-                  <p className="text-gray-600 mb-2">{job.timeRemaining}</p>
-                  <p className="text-gray-600">{job.type}</p>
-                </div>
+                  <CardHeader>
+                    <div className="flex items-center">
+                      <Briefcase size={24} className="text-gray-700 mr-2" />
+                      <CardTitle className="text-lg font-semibold">
+                        {vacancy.title}
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-gray-600">
+                      <div className="flex items-center mb-2">
+                        <Building size={20} className="text-gray-500 mr-2" />
+                        {vacancy.company}
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <Users size={20} className="text-gray-500 mr-2" />
+                        {vacancy.applicants} Applicants
+                      </div>
+                    </CardDescription>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
         </section>
 
         {/* Top Companies Section */}
-        <section className="bg-white py-16">
+        <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">
               Top Companies
             </h2>
-            <div className="flex flex-wrap gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
               {topCompanies.map((company, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-200 p-6 rounded-lg shadow-md flex items-center"
-                >
+                <div key={index} className="flex justify-center items-center">
                   <img
                     src={company.logo}
-                    alt={company.name}
-                    className="w-24 h-24 object-contain"
+                    alt={`${company.name} Logo`}
+                    className="w-32 h-32 object-contain"
                   />
                 </div>
               ))}
             </div>
           </div>
         </section>
-
-        {/* Become a Candidate / Recruiter Section */}
-        <section className="bg-gray-100 py-16">
+        {/* Ascend Steps Section */}
+        <section className="bg-white py-16">
           <div className="container mx-auto px-6">
-            <div className="flex flex-wrap justify-center gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center w-full md:w-1/2 lg:w-1/4">
-                <BriefcaseIcon size={40} className="text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Become a Candidate
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Join our platform to get access to thousands of job
-                  opportunities and connect with top recruiters.
-                </p>
-                <a
-                  href="/register-candidate"
-                  className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+              How Ascend Works
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {ascendSteps.map((step, index) => (
+                <Card
+                  key={index}
+                  className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
-                  Sign Up
-                </a>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center w-full md:w-1/2 lg:w-1/4">
-                <Building size={40} className="text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Become a Recruiter
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Post your job listings and find the perfect candidates for
-                  your organization.
-                </p>
-                <a
-                  href="/register-recruiter"
-                  className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  Sign Up
-                </a>
-              </div>
+                  <CardHeader>
+                    <div className="flex items-center">
+                      <Check size={24} className="text-gray-700 mr-2" />
+                      <CardTitle className="text-lg font-semibold">
+                        {step.title}
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-gray-600">
+                      {step.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
+
+        {/* Footer
+        <footer className="bg-gray-800 text-white py-8">
+          <div className="container mx-auto px-6">
+            <div className="flex flex-wrap justify-between">
+              <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                <h3 className="text-lg font-semibold mb-4">Company</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="hover:text-blue-400">
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-blue-400">
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-blue-400">
+                      Contact
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                <h3 className="text-lg font-semibold mb-4">Legal</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="hover:text-blue-400">
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-blue-400">
+                      Terms of Service
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="w-full md:w-1/3">
+                <h3 className="text-lg font-semibold mb-4">Subscribe</h3>
+                <p className="text-gray-400 mb-4">
+                  Stay updated with the latest job postings and career tips.
+                </p>
+                <form className="flex">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    className="w-full px-4 py-2 border border-gray-600 rounded-l-md bg-gray-900 focus:border-blue-600 focus:outline-none"
+                  />
+                  <button className="px-4 py-2 bg-blue-600 border border-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors">
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div className="text-center mt-6">
+              <p className="text-gray-400 text-sm">
+                &copy; {new Date().getFullYear()} Ascend. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer> */}
       </main>
     </div>
   );
