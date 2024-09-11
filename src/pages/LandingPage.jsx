@@ -63,20 +63,19 @@ export default function LandingPage() {
     },
   ];
 
-  // Define topCompanies with example data
   const topCompanies = [
     { name: "Company A", logo: "/company-a-logo.svg" },
     { name: "Company B", logo: "/company-b-logo.svg" },
     { name: "Company C", logo: "/company-c-logo.svg" },
     { name: "Company D", logo: "/company-d-logo.svg" },
-    { name: "Company A", logo: "/company-a-logo.svg" },
-    { name: "Company B", logo: "/company-b-logo.svg" },
-    { name: "Company C", logo: "/company-c-logo.svg" },
+    { name: "Company E", logo: "/company-a-logo.svg" },
+    { name: "Company F", logo: "/company-b-logo.svg" },
+    { name: "Company G", logo: "/company-c-logo.svg" },
   ];
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header activeLink="home" /> {/* Include the Header component */}
+      <Header activeLink="home" />
       <main>
         {/* Hero Section with Stats */}
         <section className="bg-gray-100 py-16">
