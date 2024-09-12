@@ -162,7 +162,7 @@ export default function LandingPage() {
                   </button>
                 </div>
               </div>
-              <div className="w-full md:w-1/2">
+              <div className="w-full md:w-[40%]">
                 <img
                   src="illustration.svg"
                   alt="Job Search Illustration"
