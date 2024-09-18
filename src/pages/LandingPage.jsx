@@ -227,10 +227,7 @@ export default function LandingPage() {
                           {job.title}
                         </CardTitle>
                       </div>
-                      <Badge
-                        variant="outline"
-                        className="text-gray-800 border-gray-800"
-                      >
+                      <Badge className="text-gray-800 border-gray-800">
                         {job.type}
                       </Badge>
                     </div>
