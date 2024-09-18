@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import {
-  User,
-  Upload,
   Briefcase,
-  ArrowRight,
   Search,
   MapPin,
-  Bookmark,
   BriefcaseIcon,
   Building,
   Users,
@@ -19,10 +15,10 @@ import {
   DollarSign,
   Heart,
   Database,
-  Clock,
   Check,
 } from "lucide-react";
 import Header from "@/components/Header";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -30,8 +26,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   const [jobTitle, setJobTitle] = useState("");
@@ -71,16 +65,46 @@ export default function LandingPage() {
       timeRemaining: "2 Days Remaining",
       type: "Full Time",
     },
+    {
+      title: "Product Manager",
+      company: "Google",
+      location: "Remote",
+      salary: "$90K-$120K",
+      timeRemaining: "1 Week Remaining",
+      type: "Full Time",
+    },
+    {
+      title: "Data Scientist",
+      company: "Amazon",
+      location: "Germany",
+      salary: "$70K-$90K",
+      timeRemaining: "3 Days Remaining",
+      type: "Full Time",
+    },
   ];
 
   const topCompanies = [
-    { name: "Company A", logo: "/company-a-logo.svg" },
-    { name: "Company B", logo: "/company-b-logo.svg" },
-    { name: "Company C", logo: "/company-c-logo.svg" },
-    { name: "Company D", logo: "/company-d-logo.svg" },
-    { name: "Company E", logo: "/company-a-logo.svg" },
-    { name: "Company F", logo: "/company-b-logo.svg" },
-    { name: "Company G", logo: "/company-c-logo.svg" },
+    {
+      name: "Company A",
+      logo: "/companies/atlassian.svg",
+      bgColor: "bg-gray-100",
+    },
+    {
+      name: "Company B",
+      logo: "/companies/google.webp",
+      bgColor: "bg-gray-100",
+    },
+    { name: "Company C", logo: "/companies/meta.svg", bgColor: "bg-gray-100" },
+    {
+      name: "Company D",
+      logo: "/companies/microsoft.webp",
+      bgColor: "bg-gray-100",
+    },
+    {
+      name: "Company E",
+      logo: "/companies/netflix.png",
+      bgColor: "bg-gray-100",
+    },
   ];
 
   const popularVacancies = [
@@ -107,9 +131,9 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header activeLink="home" />
-      <main>
+      <main className="flex-grow">
         {/* Hero Section with Stats */}
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-6">
@@ -154,19 +178,21 @@ export default function LandingPage() {
                       />
                     </div>
                   </div>
-                  <button
-                    className="w-full flex items-center justify-center py-3 px-4 bg-blue-600 text-white rounded-md shadow-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                    onClick={handleSearch}
-                  >
-                    <Search size={20} className="mr-2" /> Find Job
-                  </button>
+                  <a href="/jobs">
+                    <button
+                      className="w-full flex items-center justify-center py-3 px-4 bg-blue-600 text-white rounded-md shadow-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                      onClick={handleSearch}
+                    >
+                      <Search size={20} className="mr-2" /> Find Job
+                    </button>
+                  </a>
                 </div>
               </div>
               <div className="w-full md:w-1/2">
                 <img
                   src="illustration.svg"
                   alt="Job Search Illustration"
-                  className="w-full h-auto"
+                  className="w-full h-auto max-w-md mx-auto"
                 />
               </div>
             </div>
@@ -207,50 +233,61 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* // Featured Jobs Section */}
+        {/* Featured Jobs Section */}
         <section className="bg-white py-16">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">
               Featured Jobs
             </h2>
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {featuredJobs.map((job, index) => (
-                <Card
+                <a
+                  href={`/jobs/${job.title.toLowerCase().replace(/ /g, "-")}`}
                   key={index}
-                  className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  className="block"
                 >
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Briefcase size={24} className="text-gray-700 mr-2" />
-                        <CardTitle className="text-lg font-semibold">
-                          {job.title}
-                        </CardTitle>
+                  <Card className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer h-full">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <Briefcase size={24} className="text-gray-700 mr-2" />
+                          <CardTitle className="text-lg font-semibold">
+                            {job.title}
+                          </CardTitle>
+                        </div>
+                        <Badge>{job.type}</Badge>
                       </div>
-                      <Badge className="text-gray-800 border-gray-800">
-                        {job.type}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-gray-600">
-                      <div className="flex items-center mb-2">
-                        <Building size={20} className="text-gray-500 mr-2" />
-                        {job.company}
-                      </div>
-                      <div className="flex items-center mb-2">
-                        <MapPin size={20} className="text-gray-500 mr-2" />
-                        {job.location}
-                      </div>
-                      <div className="flex items-center mb-2">
-                        <DollarSign size={20} className="text-gray-500 mr-2" />
-                        {job.salary}
-                      </div>
-                      <div className="text-gray-500">{job.timeRemaining}</div>
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-gray-600">
+                        <div className="flex items-center mb-2">
+                          <Building size={20} className="text-gray-500 mr-2" />
+                          {job.company}
+                        </div>
+                        <div className="flex items-center mb-2">
+                          <MapPin size={20} className="text-gray-500 mr-2" />
+                          {job.location}
+                        </div>
+                        <div className="flex items-center mb-2">
+                          <DollarSign
+                            size={20}
+                            className="text-gray-500 mr-2"
+                          />
+                          {job.salary}
+                        </div>
+                        <div className="text-gray-500">{job.timeRemaining}</div>
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </a>
               ))}
+            </div>
+            <div className="mt-12 text-center">
+              <a href="/jobs">
+                <button className="bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors text-lg font-semibold">
+                  View All Jobs
+                </button>
+              </a>
             </div>
           </div>
         </section>
@@ -263,31 +300,35 @@ export default function LandingPage() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {popularVacancies.map((vacancy, index) => (
-                <Card
+                <a
+                  href={`/jobs?category=${vacancy.title
+                    .toLowerCase()
+                    .replace(/ /g, "-")}`}
                   key={index}
-                  className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
-                  <CardHeader>
-                    <div className="flex items-center">
-                      <Briefcase size={24} className="text-gray-700 mr-2" />
-                      <CardTitle className="text-lg font-semibold">
-                        {vacancy.title}
-                      </CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-gray-600">
-                      <div className="flex items-center mb-2">
-                        <Building size={20} className="text-gray-500 mr-2" />
-                        {vacancy.company}
+                  <Card className="bg-gray-100 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                    <CardHeader>
+                      <div className="flex items-center">
+                        <Briefcase size={24} className="text-gray-700 mr-2" />
+                        <CardTitle className="text-lg font-semibold">
+                          {vacancy.title}
+                        </CardTitle>
                       </div>
-                      <div className="flex items-center mb-2">
-                        <Users size={20} className="text-gray-500 mr-2" />
-                        {vacancy.applicants} Applicants
-                      </div>
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-gray-600">
+                        <div className="flex items-center mb-2">
+                          <Building size={20} className="text-gray-500 mr-2" />
+                          {vacancy.company}
+                        </div>
+                        <div className="flex items-center mb-2">
+                          <Users size={20} className="text-gray-500 mr-2" />
+                          {vacancy.applicants} Applicants
+                        </div>
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </a>
               ))}
             </div>
           </div>
@@ -301,17 +342,28 @@ export default function LandingPage() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
               {topCompanies.map((company, index) => (
-                <div key={index} className="flex justify-center items-center">
-                  <img
-                    src={company.logo}
-                    alt={`${company.name} Logo`}
-                    className="w-32 h-32 object-contain"
-                  />
-                </div>
+                <a
+                  href={`/companies/${company.name
+                    .toLowerCase()
+                    .replace(/ /g, "-")}`}
+                  key={index}
+                >
+                  <div
+                    className={`flex justify-center items-center cursor-pointer p-4 ${company.bgColor} rounded-lg shadow-md hover:shadow-lg transition-shadow h-full`}
+                    style={{ height: "80px" }}
+                  >
+                    <img
+                      src={company.logo}
+                      alt={`${company.name} Logo`}
+                      className="w-32 h-auto object-contain"
+                    />
+                  </div>
+                </a>
               ))}
             </div>
           </div>
         </section>
+
         {/* Ascend Steps Section */}
         <section className="bg-white py-16">
           <div className="container mx-auto px-6">
@@ -342,71 +394,15 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-
-        {/* Footer
-        <footer className="bg-gray-800 text-white py-8">
-          <div className="container mx-auto px-6">
-            <div className="flex flex-wrap justify-between">
-              <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                <h3 className="text-lg font-semibold mb-4">Company</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a href="#" className="hover:text-blue-400">
-                      About Us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-blue-400">
-                      Careers
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-blue-400">
-                      Contact
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                <h3 className="text-lg font-semibold mb-4">Legal</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a href="#" className="hover:text-blue-400">
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-blue-400">
-                      Terms of Service
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="w-full md:w-1/3">
-                <h3 className="text-lg font-semibold mb-4">Subscribe</h3>
-                <p className="text-gray-400 mb-4">
-                  Stay updated with the latest job postings and career tips.
-                </p>
-                <form className="flex">
-                  <input
-                    type="email"
-                    placeholder="Your email"
-                    className="w-full px-4 py-2 border border-gray-600 rounded-l-md bg-gray-900 focus:border-blue-600 focus:outline-none"
-                  />
-                  <button className="px-4 py-2 bg-blue-600 border border-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors">
-                    Subscribe
-                  </button>
-                </form>
-              </div>
-            </div>
-            <div className="text-center mt-6">
-              <p className="text-gray-400 text-sm">
-                &copy; {new Date().getFullYear()} Ascend. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </footer> */}
       </main>
+
+      {/* Improved Footer */}
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="container mx-auto px-6 text-center">
+          <p>&copy; {new Date().getFullYear()} Ascend. All rights reserved.</p>
+          <p className="mt-2">Developed by Team Astra</p>
+        </div>
+      </footer>
     </div>
   );
 }
