@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function Header({ activeLink }) {
   return (
@@ -90,6 +91,12 @@ export default function Header({ activeLink }) {
             <Phone size={18} className="mr-2 text-blue-600" />
             <span className="hidden md:inline">+91 7977788679</span>
           </div>
+          <Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" />
+  <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+
+
         </div>
       </div>
     </header>
