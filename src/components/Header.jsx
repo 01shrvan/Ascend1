@@ -26,7 +26,7 @@ export default function Header({ activeLink }) {
             </li>
             <li>
               <a
-                href="#"
+                href="/jobs"
                 className={`text-gray-600 hover:text-blue-600 transition-colors relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[2px] after:bg-blue-600 after:opacity-0 after:transition-opacity hover:after:opacity-100 ${
                   activeLink === "find-job"
                     ? "after:opacity-100"
