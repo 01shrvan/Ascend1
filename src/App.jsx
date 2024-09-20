@@ -1,76 +1,45 @@
-import React from 'react'
-import JobSearch from './pages/JobSearch'
-import LandingPage from './pages/LandingPage';
-import { Single_Job } from './pages/Single_Job';
-import Browse_Emp from './pages/Browse_Emp';
-import Single_emp from './pages/Single_emp';
-import Browse_Candidates from './pages/Browse_Candidates';
-import Dashboard from './pages/Dashboard';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Applied_Jobs from './pages/Applied_Jobs';
-import Favourite_Jobs from './pages/Favourite_Jobs';
-import Settings from './pages/Settings';
-import Setting_Profile from './pages/Setting_Profile';
-import Setting_Account from './pages/Setting_Account';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+// Import all pages dynamically
+const pages = {
+  LandingPage: React.lazy(() => import('./pages/LandingPage')),
+  JobSearch: React.lazy(() => import('./pages/JobSearch')),
+  Single_Job: React.lazy(() => import('./pages/Single_Job')),
+  Browse_Emp: React.lazy(() => import('./pages/Browse_Emp')),
+  Single_emp: React.lazy(() => import('./pages/Single_emp')),
+  Browse_Candidates: React.lazy(() => import('./pages/Browse_Candidates')),
+  Dashboard: React.lazy(() => import('./pages/Dashboard')),
+  Applied_Jobs: React.lazy(() => import('./pages/Applied_Jobs')),
+  Favourite_Jobs: React.lazy(() => import('./pages/Favourite_Jobs')),
+  Settings: React.lazy(() => import('./pages/Settings')),
+  Setting_Profile: React.lazy(() => import('./pages/Setting_Profile')),
+  Setting_Account: React.lazy(() => import('./pages/Setting_Account')),
+};
 
 const router = createBrowserRouter([
   {
     children: [
-      {
-        path: "/",
-        element: <LandingPage />,
-      },
-      {
-        path: "/jobs",
-        element: <JobSearch />,
-      },
-      {
-        path: "/single_job",
-        element: <Single_Job />,
-      },
-      {
-        path: "/browse_emp",
-        element: <Browse_Emp />,
-      },
-      {
-        path: "/single_emp",
-        element: <Single_emp />,
-      },
-      {
-        path: "/browse_cands",
-        element: <Browse_Candidates />,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/dashboard/applied_jobs",
-        element: <Applied_Jobs />,
-      },
-      {
-        path: "/dashboard/favourite_jobs",
-        element: <Favourite_Jobs />,
-      },
-      {
-        path: "/settings",
-        element: <Settings />,
-      },
-      {
-        path: "/settings/profile",
-        element: <Setting_Profile />,
-      },
-      {
-        path: "/settings/account",
-        element: <Setting_Account />,
-      },
+      { path: "/", element: <pages.LandingPage /> },
+      { path: "/jobs", element: <pages.JobSearch /> },
+      { path: "/single_job", element: <pages.Single_Job /> },
+      { path: "/browse_emp", element: <pages.Browse_Emp /> },
+      { path: "/single_emp", element: <pages.Single_emp /> },
+      { path: "/browse_cands", element: <pages.Browse_Candidates /> },
+      { path: "/dashboard", element: <pages.Dashboard /> },
+      { path: "/dashboard/applied_jobs", element: <pages.Applied_Jobs /> },
+      { path: "/dashboard/favourite_jobs", element: <pages.Favourite_Jobs /> },
+      { path: "/settings", element: <pages.Settings /> },
+      { path: "/settings/profile", element: <pages.Setting_Profile /> },
+      { path: "/settings/account", element: <pages.Setting_Account /> },
     ],
   },
 ]);
+
 export default function App() {
   return (
-    <>
-    <RouterProvider router={router} />
-    </>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </React.Suspense>
   );
 }
